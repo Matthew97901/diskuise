@@ -20,6 +20,7 @@ jobs:
         run: |
           cat > src/main/java/me/tud/diskuise/elements/types/TypPaintingArt.java << 'EOF'
 package me.tud.diskuise.elements.types;
+;
 import ch.njol.skript.util.EnumUtils;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.classes.ClassInfo;
