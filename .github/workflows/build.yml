@@ -19,51 +19,51 @@ jobs:
       - name: Patch TypPaintingArt.java
         run: |
           cat << EOF > src/main/java/me/tud/diskuise/elements/types/TypPaintingArt.java
-          package me.tud.diskuise.elements.types;
+package me.tud.diskuise.elements.types;
 
-          import ch.njol.skript.util.EnumUtils;
-          import ch.njol.skript.classes.Parser;
-          import ch.njol.skript.classes.ClassInfo;
-          import ch.njol.skript.classes.EnumClassInfo;
-          import org.bukkit.Bukkit;
-          import org.bukkit.event.Event;
+import ch.njol.skript.util.EnumUtils;
+import ch.njol.skript.classes.Parser;
+import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.EnumClassInfo;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 
-          public class TypPaintingArt {
+public class TypPaintingArt {
 
-              static {
-                  try {
-                      Class<?> paintingArtClass = Class.forName("org.bukkit.Art");
-                      if (paintingArtClass.isEnum()) {
-                          EnumUtils<?> utils = new EnumUtils<>(paintingArtClass);
-                          new EnumClassInfo<>(paintingArtClass, "paintingart")
-                              .parser(new Parser<Enum<?>>() {
-                                  @Override
-                                  public Enum<?> parse(String input, ParseContext context) {
-                                      return utils.parse(input);
-                                  }
+    static {
+        try {
+            Class<?> paintingArtClass = Class.forName("org.bukkit.Art");
+            if (paintingArtClass.isEnum()) {
+                EnumUtils<?> utils = new EnumUtils<>(paintingArtClass);
+                new EnumClassInfo<>(paintingArtClass, "paintingart")
+                    .parser(new Parser<Enum<?>>() {
+                        @Override
+                        public Enum<?> parse(String input, ParseContext context) {
+                            return utils.parse(input);
+                        }
 
-                                  @Override
-                                  public String toString(Enum<?> e, int flags) {
-                                      return e.name();
-                                  }
+                        @Override
+                        public String toString(Enum<?> e, int flags) {
+                            return e.name();
+                        }
 
-                                  @Override
-                                  public String toVariableNameString(Enum<?> e) {
-                                      return e.name();
-                                  }
+                        @Override
+                        public String toVariableNameString(Enum<?> e) {
+                            return e.name();
+                        }
 
-                                  @Override
-                                  public String getVariableNamePattern() {
-                                      return "\\w+";
-                                  }
-                              });
-                      }
-                  } catch (ClassNotFoundException e) {
-                      Bukkit.getLogger().warning("[Diskuise] Art enum not found; skipping TypPaintingArt registration.");
-                  }
-              }
-          }
-          EOF
+                        @Override
+                        public String getVariableNamePattern() {
+                            return "\\w+";
+                        }
+                    });
+            }
+        } catch (ClassNotFoundException e) {
+            Bukkit.getLogger().warning("[Diskuise] Art enum not found; skipping TypPaintingArt registration.");
+        }
+    }
+}
+EOF
 
       - name: Build with Maven
         run: mvn clean package
